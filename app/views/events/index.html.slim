@@ -1,3 +1,7 @@
-= @events.inspect
+table
+  - @events.each do |event|
+    tr
+      td= event.inspect
+      td= link_to 'Attendees', people_path
 
 = link_to 'New', new_event_path
