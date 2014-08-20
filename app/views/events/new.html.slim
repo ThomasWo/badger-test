@@ -1,0 +1,12 @@
+h1 Create Event
+= form_for @event, url: { action: 'create' } do |f|
+  = f.label 'Event Name'
+  = f.text_field :name
+  br
+  = f.label 'Start Date and Time'
+  = f.datetime_select :start
+  br
+  = f.label 'End Date and Time'
+  = f.datetime_select :end
+  br
+  = f.submit 'Create'
