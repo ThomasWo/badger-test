@@ -1,5 +1,10 @@
 h1 Attendees
+= form_tag(action: 'import', multipart: true, remote: true) do
+  = file_field_tag :file
+  button#submit Import
+
 - if @people.present?
+  h2 People
   = link_to 'Create Badges', export_path(format: :pdf)
   / = link_to 'Delete All', delete_people_path
   table
@@ -9,7 +14,3 @@ h1 Attendees
         td= person.last_name.titleize
         td= person.email
         td= link_to 'Delete', person_path(person.id), method: :delete, confirm: "Are you sure?"
-- else
-  = form_tag(action: 'import', multipart: true, remote: true) do
-    = file_field_tag :file
-    button#submit Import

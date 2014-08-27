@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :people, only: [:index, :destroy]
   post :import, to: 'people#import'
   get :export, to: 'people#export'
+  get :export_blanks, to: 'people#export_blanks'
 
   root 'home#index'
   # The priority is based upon order of creation: first created -> highest priority.

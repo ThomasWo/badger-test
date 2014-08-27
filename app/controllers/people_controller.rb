@@ -2,7 +2,7 @@ class PeopleController < ApplicationController
   protect_from_forgery
 
   def index
-    @people = Person.all
+    @people = Person.order(last_name: :asc, first_name: :asc)
   end
 
   def destroy
@@ -17,15 +17,17 @@ class PeopleController < ApplicationController
 
   def export_blanks
     respond_to do |format|
-      pdf = BadgePdf.new([], {blanks: Person.all.count * 0.15})
-      send_data pdf.render, filename: blank_badges.pdf, type: 'application/pdf', disposition: 'inline'
+      format.pdf do
+        pdf = BadgePdf.new((1..4), {blanks: true})
+        send_data pdf.render, filename: 'blank_badges.pdf', type: 'application/pdf', disposition: 'inline'
+      end
     end
   end
 
   def export
     respond_to do |format|
       format.pdf do
-        pdf = BadgePdf.new(Person.all)
+        pdf = BadgePdf.new(Person.order(last_name: :asc, first_name: :asc))
         send_data pdf.render, filename: 'badges.pdf', type: 'application/pdf', disposition: 'inline'
       end
       format.html
