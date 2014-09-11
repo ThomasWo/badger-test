@@ -21,11 +21,12 @@ class EventsController < ApplicationController
   end
 
   def create
-    start_date = end_date = []
+    start_date = []
+    end_date = []
 
     (1..5).each do |i|
-      start_date << params[:event]["start(#{i}i)"].to_i
-      end_date << params[:event]["end(#{i}i)"].to_i
+      start_date << params[:event]["start_date(#{i}i)"].to_i
+      end_date << params[:event]["end_date(#{i}i)"].to_i
     end
 
     @event = Event.create(

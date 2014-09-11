@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  resources :events
-  resources :people, only: [:index, :destroy]
+  resources :events do
+    resources :roles do
+      resources :people, only: [:index, :destroy]
+    end
+  end
+
   post :import, to: 'people#import'
   get :export, to: 'people#export'
   get :export_blanks, to: 'people#export_blanks'
