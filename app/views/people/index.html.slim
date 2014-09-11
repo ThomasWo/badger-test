@@ -10,7 +10,7 @@ h1 Attendees
   table
     - @people.each do |person|
       tr
-        td= person.first_name.titleize
-        td= person.last_name.titleize
+        td= person.first_name
+        td= person.last_name
         td= person.email
-        td= link_to 'Delete', person_path(person.id), method: :delete, confirm: "Are you sure?"
+        td= link_to 'Delete', event_role_person_path(id: person.id), method: :delete, confirm: "Are you sure?"

@@ -12,7 +12,8 @@ class PeopleController < ApplicationController
   end
 
   def import
-    Person.parse(params[:csv])
+    Person.parse(params[:csv], params[:role_id])
+    render nothing: true
   end
 
   def export_blanks

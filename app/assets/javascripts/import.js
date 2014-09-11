@@ -9,7 +9,7 @@ $('#submit').on('click', function(e) {
 
   $.ajax({
     type: 'POST',
-    url: 'import',
+    url: '/import',
     cache: false,
     contentType: false,
     processData: false,

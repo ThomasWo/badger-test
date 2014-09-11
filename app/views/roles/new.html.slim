@@ -1,0 +1,11 @@
+- if flash[:error]
+  = flash[:error]
+
+= form_for @role, url: {action: 'create'} do |f|
+  = f.label "Participation Level"
+  = f.text_field :level
+  br
+  = f.label "Badge Display"
+  = f.text_field :display
+  br
+  = f.submit 'Create'
