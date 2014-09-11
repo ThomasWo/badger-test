@@ -1,7 +1,7 @@
 require 'csv'
 
 class Person < ActiveRecord::Base
-  belongs_to :event
+  belongs_to :role
 
   def self.parse(csv)
     CSV.foreach(csv.path, headers: true) do |row|
