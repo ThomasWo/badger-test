@@ -5,11 +5,11 @@ $('#submit').on('click', function(e) {
   var file = $('#file')[0].files[0],
       form_data = new FormData();
 
-  form_data.append('csv', file);
+  form_data.append('data', file);
 
   $.ajax({
     type: 'POST',
-    url: '/import',
+    url: $(this).parent().attr('action'),
     cache: false,
     contentType: false,
     processData: false,

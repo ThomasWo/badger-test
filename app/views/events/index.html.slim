@@ -1,7 +1,9 @@
 table
   - @events.each do |event|
     tr
-      td= event.inspect
-      td= link_to 'Roles', roles_path
+      td= link_to event.name, event_path(event)
+      td= l(event.start_date, format: :short)
+      td= l(event.end_date, format: :short)
+      td= link_to 'Roles', event_roles_path(event)
 
 = link_to 'New', new_event_path

@@ -12,7 +12,7 @@ class PeopleController < ApplicationController
   end
 
   def import
-    Person.parse(params[:csv], params[:role_id])
+    Person.parse(params[:data], params[:role_id])
     render nothing: true
   end
 

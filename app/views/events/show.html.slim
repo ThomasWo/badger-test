@@ -1,3 +1,15 @@
-= @event.inspect
+h1= @event.name
 
-= link_to 'Add Roles', event_roles_url(@event)
+= form_tag(action: 'import_image', multipart: true, remote: true) do
+  = file_field_tag :file
+  button#submit Import
+
+
+section
+  table
+    - @event.roles.each do |role|
+      tr
+        td= link_to role.level, event_role_path(@event, role)
+        td= role.display
+        td= link_to "Edit", edit_event_role_path(@event, role)
+  = link_to 'Add Roles', event_roles_url(@event)

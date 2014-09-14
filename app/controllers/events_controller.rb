@@ -37,4 +37,15 @@ class EventsController < ApplicationController
 
     redirect_to @event
   end
+
+  def import_image
+    event = Event.find(params[:id])
+
+    filename = Event.import_logo(params[:data], event.name)
+
+    event.logo_path = filename
+    event.save
+
+    render nothing: true
+  end
 end
