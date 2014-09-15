@@ -8,6 +8,13 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+
+    if params[:role_id]
+      @role = Role.find(params[:role_id])
+    else
+      @role = Role.first
+    end
+
     respond_to do |format|
       format.html
     end

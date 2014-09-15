@@ -15,7 +15,7 @@ class RolesController < ApplicationController
 
     if @role.valid?
       flash[:status] = "Successfully added #{@role.level} to #{@role.event.name}"
-      redirect_to event_roles_path(params[:event_id])
+      redirect_to event_path(params[:event_id])
     else
       flash[:error] = @role.errors.messages[:level][0]
       render :new

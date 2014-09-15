@@ -1,0 +1,16 @@
+#preview {
+  position: relative;
+  text-align: center;
+  display: block;
+  width: 220pt;
+  min-height: 347pt;
+}
+
+.role {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
