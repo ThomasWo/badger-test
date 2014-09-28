@@ -3,4 +3,4 @@
   = f.input :start_date, as: :datetimepicker, label: "Start Date and Time"
   = f.input :end_date, as: :datetimepicker, label: "End Date and Time"
   = f.input :logo
-  = f.button :submit, "Create"
+  = f.button :submit, f.object.new_record? ? "Create" : "Update"
