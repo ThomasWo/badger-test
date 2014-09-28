@@ -47,6 +47,7 @@ GEM
     arel (5.0.1.20140414130214)
     autoprefixer-rails (3.1.0.20140911)
       execjs
+    bcrypt (3.1.7)
     better_errors (2.0.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -65,6 +66,12 @@ GEM
       execjs
     coffee-script-source (1.7.1)
     debug_inspector (0.0.2)
+    devise (3.3.0)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 3.2.6, < 5)
+      thread_safe (~> 0.1)
+      warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.2.1)
     ffi (1.9.3)
@@ -99,6 +106,7 @@ GEM
     mime-types (1.25.1)
     minitest (5.4.0)
     multi_json (1.10.1)
+    orm_adapter (0.5.0)
     pdf-core (0.2.5)
     polyglot (0.3.5)
     prawn (1.2.1)
@@ -170,6 +178,8 @@ GEM
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    warden (1.2.3)
+      rack (>= 1.0)
     xdan-datetimepicker-rails (2.3.4)
       jquery-rails
       rails (>= 3.2.16)
@@ -183,6 +193,7 @@ DEPENDENCIES
   binding_of_caller
   carrierwave!
   coffee-rails (~> 4.0.0)
+  devise
   guard
   guard-bundler
   guard-rails
