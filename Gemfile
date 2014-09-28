@@ -13,7 +13,7 @@ gem 'prawn', '1.2.1'
 gem 'xdan-datetimepicker-rails'
 
 group :development do
-  gem 'pry'
+  gem 'pry-rails'
 end
 
 group :development, :test do
