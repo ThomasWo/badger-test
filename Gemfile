@@ -19,6 +19,7 @@ gem 'autoprefixer-rails'
 
 gem 'xdan-datetimepicker-rails'
 gem 'simple_form'
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 
 group :development do
   gem 'better_errors'

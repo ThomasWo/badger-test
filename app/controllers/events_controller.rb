@@ -38,19 +38,8 @@ class EventsController < ApplicationController
     end
   end
 
-  def import_image
-    event = Event.find(params[:id])
-
-    filename = Event.import_logo(params[:data], event.name)
-
-    event.logo_path = filename
-    event.save
-
-    render nothing: true
-  end
-
   private
     def event_params
-      params.require(:event).permit(:name, :start_date, :end_date)
+      params.require(:event).permit(:name, :start_date, :end_date, :logo)
     end
 end

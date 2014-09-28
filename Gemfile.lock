@@ -5,6 +5,16 @@ GIT
     meyer-css-reset-rails (1.0.2)
       rails (>= 3.2.12)
 
+GIT
+  remote: git://github.com/carrierwaveuploader/carrierwave.git
+  revision: 3ab0d0da6cac2b85e47e7989326f05b90270bde5
+  specs:
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -171,6 +181,7 @@ DEPENDENCIES
   autoprefixer-rails
   better_errors
   binding_of_caller
+  carrierwave!
   coffee-rails (~> 4.0.0)
   guard
   guard-bundler

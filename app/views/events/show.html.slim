@@ -1,9 +1,7 @@
 h1= @event.name
 
-= form_tag(action: 'import_image', multipart: true, remote: true) do
-  = file_field_tag :file
-  button#submit Import
-
+section#event_form
+  == render 'form'
 
 section
   h3 Roles
