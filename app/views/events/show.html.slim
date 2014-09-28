@@ -35,4 +35,4 @@ section
         'Please upload an Event logo
     h2 First Name
     h2 Last Name
-    h2.role= @role.display.upcase
+    h2.role= @role.display.try(:upcase)

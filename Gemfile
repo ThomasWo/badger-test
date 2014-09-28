@@ -10,6 +10,8 @@ gem 'jquery-rails'
 gem 'slim'
 gem 'prawn', '1.2.1'
 
+gem 'xdan-datetimepicker-rails'
+
 group :development do
   gem 'pry'
 end

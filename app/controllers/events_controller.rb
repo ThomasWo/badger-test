@@ -28,19 +28,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    start_date = []
-    end_date = []
-
-    (1..5).each do |i|
-      start_date << params[:event]["start_date(#{i}i)"].to_i
-      end_date << params[:event]["end_date(#{i}i)"].to_i
-    end
-
-    @event = Event.create(
-      name: params[:event][:name],
-      start_date: DateTime.civil_from_format(:local, start_date[0], start_date[1], start_date[2], start_date[3], start_date[4]),
-      end_date: DateTime.civil_from_format(:local, end_date[0], end_date[1], end_date[2], end_date[3], end_date[4])
-    )
+    @event = Event.create(event_params)
 
     redirect_to @event
   end
@@ -55,4 +43,9 @@ class EventsController < ApplicationController
 
     render nothing: true
   end
+
+  private
+    def event_params
+      params.require(:event).permit(:name, :start_date, :end_date)
+    end
 end

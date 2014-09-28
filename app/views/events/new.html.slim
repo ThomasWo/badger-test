@@ -4,9 +4,9 @@ h1 Create Event
   = f.text_field :name
   br
   = f.label 'Start Date and Time'
-  = f.datetime_select :start_date
+  = f.text_field :start_date, class: 'datetimepicker'
   br
   = f.label 'End Date and Time'
-  = f.datetime_select :end_date
+  = f.text_field :end_date, class: 'datetimepicker'
   br
   = f.submit 'Create'
