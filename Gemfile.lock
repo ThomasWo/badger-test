@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/carles/meyer-css-reset-rails.git
+  revision: 5d8830011566992cfa79aeaace1d7292a41526e9
+  specs:
+    meyer-css-reset-rails (1.0.2)
+      rails (>= 3.2.12)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -28,6 +35,8 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
+    autoprefixer-rails (3.1.0.20140911)
+      execjs
     builder (3.2.2)
     celluloid (0.16.0)
       timers (~> 4.0.0)
@@ -149,11 +158,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  autoprefixer-rails
   coffee-rails (~> 4.0.0)
   guard
   guard-bundler
   guard-rails
   jquery-rails
+  meyer-css-reset-rails!
   prawn (= 1.2.1)
   pry-rails
   rails (= 4.1.1)

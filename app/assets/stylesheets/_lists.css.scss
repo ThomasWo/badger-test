@@ -1,0 +1,26 @@
+/* allow for default list styling */
+ul.list {
+   list-style-type: disc;
+   list-style-position: inside;
+
+   li {
+      padding-left: 15px;
+   }
+}
+
+ol.list {
+   list-style-type: decimal;
+   list-style-position: inside;
+}
+
+ul.list ul, ol.list ul {
+   list-style-type: circle;
+   list-style-position: inside;
+   margin-left: 15px;
+}
+
+ol.list ol, ul.list ol {
+   list-style-type: lower-latin;
+   list-style-position: inside;
+   margin-left: 15px;
+}

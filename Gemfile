@@ -1,8 +1,10 @@
 source 'https://rubygems.org'
-ruby "2.1.2"
 
+ruby "2.1.2"
 gem 'rails', '4.1.1'
+
 gem 'sqlite3'
+
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -10,10 +12,14 @@ gem 'jquery-rails'
 gem 'slim'
 gem 'prawn', '1.2.1'
 
+gem 'pry-rails'
+
+gem 'meyer-css-reset-rails', github: 'carles/meyer-css-reset-rails'
+gem 'autoprefixer-rails'
+
 gem 'xdan-datetimepicker-rails'
 
 group :development do
-  gem 'pry-rails'
 end
 
 group :development, :test do

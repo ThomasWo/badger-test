@@ -1,0 +1,42 @@
+* {
+  box-sizing: border-box;
+}
+
+@for $index from 1 through 6 {
+  h#{$index} {
+    font-weight: bold;
+    font-size: 2rem / $index;
+    font-family: Arial, sans;
+  }
+}
+
+body {
+  background: #d6d6d6;
+}
+
+header {
+  width: 100%;
+  background: blue;
+  color: white;
+
+  a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }
+
+  ul.nav {
+    padding: .5rem 0;
+
+    > li {
+      display: inline-block;
+      padding: 0 .5rem;
+    }
+  }
+}
+
+main {
+  width: 960px;
+  margin: 0 auto;
+  background: #fff;
+}
