@@ -1,0 +1,13 @@
+.input {
+  margin: .5rem;
+
+  &.field_with_errors {
+    .error {
+      color: red;
+    }
+  }
+}
+
+input[type='text'], textarea {
+  width: 100%;
+}

@@ -38,5 +38,11 @@ header {
 main {
   width: 960px;
   margin: 0 auto;
+  padding: 5px;
   background: #fff;
+  overflow: auto;
+}
+
+section {
+  margin: 5px;
 }

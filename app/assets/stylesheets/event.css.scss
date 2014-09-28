@@ -1,9 +1,22 @@
+#badge_preview {
+  float: right;
+  width: 320px;
+}
+
+section#event_form, section#roles_form {
+  width: 600px;
+}
+
 #preview {
   position: relative;
   text-align: center;
   display: block;
   width: 220pt;
   min-height: 347pt;
+
+  img.logo {
+    max-width: 100%;
+  }
 }
 
 .role {

@@ -1,24 +1,41 @@
 class RolesController < ApplicationController
+  before_action :get_event, only: [:new, :create, :destroy]
+
   def index
     @roles = Role.all
   end
 
   def new
-    @role = Role.new
+    @role = @event.roles.build
+
     respond_to do |format|
       format.html
     end
   end
 
   def create
-    @role = Role.create(level: params[:role][:level], display: params[:role][:display], event_id: params[:event_id])
+    @role = @event.roles.build(role_params)
 
-    if @role.valid?
-      flash[:status] = "Successfully added #{@role.level} to #{@role.event.name}"
-      redirect_to event_path(params[:event_id])
+    if @role.save
+      redirect_to event_path(@event), notice: "Successfully added #{@role.level} to #{@event.name}."
     else
-      flash[:error] = @role.errors.messages[:level][0]
+      flash[:error] = "Error creating role."
       render :new
     end
   end
+
+  def destroy
+    @role = @event.roles.find(params[:id])
+    @role.destroy
+    redirect_to event_path(@event), notice: "Successfully deleted #{@role.level} from #{@event.name}."
+  end
+
+  private
+    def role_params
+      params.require(:role).permit(:level, :display)
+    end
+
+    def get_event
+      @event = Event.find(params[:event_id])
+    end
 end
