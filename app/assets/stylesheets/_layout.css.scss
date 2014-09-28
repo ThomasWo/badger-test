@@ -1,12 +1,12 @@
 * {
   box-sizing: border-box;
+  font-family: Arial, sans;
 }
 
 @for $index from 1 through 6 {
   h#{$index} {
     font-weight: bold;
-    font-size: 2rem / $index;
-    font-family: Arial, sans;
+    font-size: 2rem - (.2rem * $index);
   }
 }
 
