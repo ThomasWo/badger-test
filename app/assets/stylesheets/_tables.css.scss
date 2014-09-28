@@ -1,0 +1,42 @@
+table {
+  border: 1px solid #f0f0f0;
+  width: 100%;
+
+  caption {
+
+  }
+
+  tr {
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  thead {
+    th {
+      padding: .2rem .5rem;
+      font-weight: bold;
+      text-align: left;
+
+      &:last-of-type {
+        width: 1px;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  tbody {
+    td {
+      padding: .2rem .5rem;
+
+      &:last-of-type {
+        width: 1px;
+        white-space: nowrap;
+      }
+
+      &.actions {
+        a {
+          padding: 0 .2rem;
+        }
+      }
+    }
+  }
+}

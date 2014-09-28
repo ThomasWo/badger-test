@@ -6,8 +6,16 @@
       color: red;
     }
   }
+
+  label {
+    display: block;
+    font-weight: bold;
+    font-size: .9rem;
+  }
 }
 
 input[type='text'], textarea {
   width: 100%;
+  font-size: .9rem;
+  padding: .2rem .5rem;
 }

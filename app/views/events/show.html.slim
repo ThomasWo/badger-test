@@ -22,15 +22,16 @@ section#roles_form
   h3 Roles
   table
     thead
-      th Participation Level
-      th Badge Display
+      th= Role.human_attribute_name(:level)
+      th= Role.human_attribute_name(:display)
       th
     tbody
       - @event.roles.each do |role|
         tr
           td= link_to role.level, event_role_path(@event, role)
           td= role.display
-          td= link_to "Edit", edit_event_role_path(@event, role)
-          td= link_to "Delete", event_role_path(@event, role), method: :delete, data: { confirm: "Are you sure?" }
+          td.actions
+            = link_to "Edit", edit_event_role_path(@event, role)
+            = link_to "Delete", event_role_path(@event, role), method: :delete, data: { confirm: "Are you sure?" }
   = link_to 'Add Role', new_event_role_path(@event)
 
