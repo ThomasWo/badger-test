@@ -28,9 +28,14 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.create(event_params)
+    @event = Event.new(event_params)
 
-    redirect_to @event
+    if @event.save
+      redirect_to @event, notice: "Event was created successfully."
+    else
+      flash[:error] = "Event could not be created."
+      render 'new'
+    end
   end
 
   def import_image
