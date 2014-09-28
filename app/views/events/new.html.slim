@@ -1,12 +1,6 @@
 h1 Create Event
-= form_for @event, url: { action: 'create' } do |f|
-  = f.label 'Event Name'
-  = f.text_field :name
-  br
-  = f.label 'Start Date and Time'
-  = f.text_field :start_date, class: 'datetimepicker'
-  br
-  = f.label 'End Date and Time'
-  = f.text_field :end_date, class: 'datetimepicker'
-  br
-  = f.submit 'Create'
+= simple_form_for @event do |f|
+  = f.input :name, label: "Event Name"
+  = f.input :start_date, as: :datetimepicker, label: "Start Date and Time"
+  = f.input :end_date, as: :datetimepicker, label: "End Date and Time"
+  = f.button :submit, "Create"

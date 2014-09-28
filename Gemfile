@@ -18,6 +18,7 @@ gem 'meyer-css-reset-rails', github: 'carles/meyer-css-reset-rails'
 gem 'autoprefixer-rails'
 
 gem 'xdan-datetimepicker-rails'
+gem 'simple_form'
 
 group :development do
 end
