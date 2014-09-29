@@ -46,3 +46,27 @@ main {
 section {
   margin: 5px;
 }
+
+p, div, li, th, td, a {
+  line-height: 1.2rem;
+}
+
+.flash {
+  width: 100%;
+  padding: .5rem 1rem;
+  border: 1px solid black;
+  width: 960px;
+  margin: 0 auto;
+
+  &.notice {
+    background: green;
+    border-color: darken(green, 10%);
+    color: white;
+  }
+
+  &.error {
+    background: red;
+    border-color: darken(red, 10%);
+    color: white;
+  }
+}
