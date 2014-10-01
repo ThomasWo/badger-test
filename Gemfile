@@ -13,3 +13,9 @@ gem 'prawn', '1.2.1'
 group :development do
   gem 'pry'
 end
+
+group :development, :test do
+  gem 'guard'
+  gem 'guard-rails'
+  gem 'guard-bundler'
+end
