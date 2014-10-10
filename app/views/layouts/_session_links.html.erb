@@ -1,6 +1,0 @@
-<ul class="session">
-  <%- if user_signed_in? && current_user.superadmin? -%>
-    <li><%= render 'layouts/superadmin_tools' %></li>
-  <%- end -%>
-  <%= render 'layouts/navigation_links' %>
-</ul>
