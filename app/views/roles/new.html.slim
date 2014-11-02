@@ -1,4 +1,6 @@
-= simple_form_for [@event, @role] do |f|
-  = f.input :level
-  = f.input :display
-  = f.button :submit, "Create"
+= render 'form', submit_type: 'Create'
+
+/ = simple_form_for [@event, @role] do |f|
+/   = f.input :level
+/   = f.input :display
+/   = f.button :submit, "Create"
