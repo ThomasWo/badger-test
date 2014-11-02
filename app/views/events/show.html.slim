@@ -1,28 +1,6 @@
 h1= @event.name
 
-= form_tag(action: 'import_image', multipart: true, remote: true) do
-  = file_field_tag :file
-  button#submit Import
-
-
-section
-  h3 Roles
-  - if flash[:status]
-    = flash[:status]
-  table
-    thead
-      th Participation Level
-      th Badge Display
-      th
-    tbody
-      - @event.roles.each do |role|
-        tr
-          td= link_to role.level, event_role_path(@event, role)
-          td= role.display
-          td= link_to "Edit", edit_event_role_path(@event, role)
-  = link_to 'Add Role', new_event_role_path(@event)
-
-section
+section#badge_preview
   h3 Badge Preview
   = form_tag('', method: :get) do
     = select_tag :role_id, options_from_collection_for_select(@event.roles, 'id', 'level')
@@ -30,9 +8,30 @@ section
   div#preview style='border: 5px solid red;'
     p
       - if @event.logo_path
-        img src=@event.logo_path
+        = image_tag @event.logo.url, alt: "#{@event.name} Logo", class: 'logo'
       - else
         'Please upload an Event logo
     h2 First Name
     h2 Last Name
-    h2.role= @role.display.upcase
+    h2.role= @role.display.try(:upcase)
+
+section#event_form
+  == render 'form'
+
+section#roles_form
+  h3 Roles
+  table
+    thead
+      th= Role.human_attribute_name(:level)
+      th= Role.human_attribute_name(:display)
+      th
+    tbody
+      - @event.roles.each do |role|
+        tr
+          td= link_to role.level, event_role_path(@event, role)
+          td= role.display
+          td.actions
+            = link_to "Edit", edit_event_role_path(@event, role)
+            = link_to "Delete", event_role_path(@event, role), method: :delete, data: { confirm: "Are you sure?" }
+  = link_to 'Add Role', new_event_role_path(@event)
+

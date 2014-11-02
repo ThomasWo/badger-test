@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :events do
     resources :roles do
       resources :people, only: [:index, :destroy]
     end
   end
-  post '/events/:id/import_image', to: 'events#import_image'
 
   post :import, to: 'people#import'
   get :export, to: 'people#export'

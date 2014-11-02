@@ -1,11 +1,4 @@
-- if flash[:error]
-  = flash[:error]
-
-= form_for @role, url: {action: 'create'} do |f|
-  = f.label "Participation Level"
-  = f.text_field :level
-  br
-  = f.label "Badge Display"
-  = f.text_field :display
-  br
-  = f.submit 'Create'
+= simple_form_for [@event, @role] do |f|
+  = f.input :level
+  = f.input :display
+  = f.button :submit, "Create"

@@ -1,8 +1,10 @@
 source 'https://rubygems.org'
-ruby "2.1.2"
 
-gem 'rails', '4.1.1'
+ruby "2.1.2"
+gem 'rails', '4.1.6'
+
 gem 'sqlite3'
+
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -10,8 +12,21 @@ gem 'jquery-rails'
 gem 'slim'
 gem 'prawn', '1.2.1'
 
+gem 'pry-rails'
+
+gem 'meyer-css-reset-rails', github: 'carles/meyer-css-reset-rails'
+gem 'autoprefixer-rails'
+
+gem 'xdan-datetimepicker-rails'
+gem 'simple_form'
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+
+gem 'devise'
+
 group :development do
-  gem 'pry'
+  gem 'better_errors'
+  gem 'binding_of_caller', platforms: [:mri_21]
+  gem 'quiet_assets'
 end
 
 group :development, :test do
