@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140928051425) do
+ActiveRecord::Schema.define(version: 20141102164920) do
 
   create_table "events", force: true do |t|
     t.string   "name"
@@ -27,6 +27,10 @@ ActiveRecord::Schema.define(version: 20140928051425) do
     t.datetime "updated_at"
     t.string   "email"
     t.integer  "role_id"
+    t.string   "custom_handle"
+    t.string   "shirt_size"
+    t.text     "diet_restrictions"
+    t.integer  "event_id"
   end
 
   add_index "people", ["role_id"], name: "index_people_on_role_id"

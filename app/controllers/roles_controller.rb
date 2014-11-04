@@ -1,5 +1,5 @@
 class RolesController < ApplicationController
-  before_action :get_event, only: [:new, :create, :edit, :update, :destroy]
+  before_action :get_event, only: [:new, :create, :show, :edit, :update, :destroy]
 
   def index
     @roles = Role.all
@@ -11,6 +11,10 @@ class RolesController < ApplicationController
     respond_to do |format|
       format.html
     end
+  end
+
+  def show
+    @role = @event.roles.find(params[:id])
   end
 
   def edit

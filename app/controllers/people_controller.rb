@@ -1,18 +1,20 @@
 class PeopleController < ApplicationController
   protect_from_forgery
 
+  before_action :get_event #, only: [:index, :destroy, :import]
+
   def index
-    @people = Person.order(last_name: :asc, first_name: :asc)
+    @people = @event.people
   end
 
   def destroy
-    Person.find(params[:id]).destroy
+    @event.people.find(params[:id]).destroy
 
-    redirect_to people_path
+    redirect_to event_people_path(@event)
   end
 
   def import
-    Person.parse(params[:data], params[:role_id])
+    @event.people.parse(params[:data], @event)
     render nothing: true
   end
 
@@ -28,10 +30,16 @@ class PeopleController < ApplicationController
   def export
     respond_to do |format|
       format.pdf do
-        pdf = BadgePdf.new(Person.order(last_name: :asc, first_name: :asc))
+        pdf = BadgePdf.new(@event.roles)
         send_data pdf.render, filename: 'badges.pdf', type: 'application/pdf', disposition: 'inline'
       end
       format.html
     end
+  end
+
+  private
+
+  def get_event
+    @event = Event.find(params[:event_id])
   end
 end
