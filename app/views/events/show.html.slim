@@ -20,6 +20,8 @@ section#event_form
 
 section#roles_form
   h3 Roles
+  p
+    = link_to "Attendees", event_people_path(@event)
   table
     thead
       th= Role.human_attribute_name(:level)

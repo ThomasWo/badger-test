@@ -1,5 +1,5 @@
 class RolesController < ApplicationController
-  before_action :get_event, only: [:new, :create, :destroy]
+  before_action :get_event, only: [:new, :create, :show, :edit, :update, :destroy]
 
   def index
     @roles = Role.all
@@ -10,6 +10,25 @@ class RolesController < ApplicationController
 
     respond_to do |format|
       format.html
+    end
+  end
+
+  def show
+    @role = @event.roles.find(params[:id])
+  end
+
+  def edit
+    @role = @event.roles.find(params[:id])
+  end
+
+  def update
+    @role = @event.roles.find(params[:id])
+
+    if @role.update_attributes(role_params)
+      redirect_to event_path(@event), notice: "Successfully updated #{@role.level} to #{@event.name}."
+    else
+      flash[:error] = "Error updating role."
+      render :edit
     end
   end
 

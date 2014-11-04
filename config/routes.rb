@@ -1,14 +1,19 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :events do
-    resources :roles do
-      resources :people, only: [:index, :destroy]
+    resources :roles
+
+    resources :people, only: [:index, :destroy] do
+      post :import, on: :collection
+
+      get :export, on: :collection
+      get :export_blanks, on: :collection
     end
   end
 
-  post :import, to: 'people#import'
-  get :export, to: 'people#export'
-  get :export_blanks, to: 'people#export_blanks'
+  # post :import, to: 'people#import'
+  # get :export, to: 'people#export'
+  # get :export_blanks, to: 'people#export_blanks'
 
   root 'home#index'
   # The priority is based upon order of creation: first created -> highest priority.

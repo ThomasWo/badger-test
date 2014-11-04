@@ -1,11 +1,14 @@
 h1 Attendees
-= form_tag(action: 'import', multipart: true, remote: true) do
+= form_tag(import_event_people_path(params[:event_id], params[:role_id]), multipart: true, remote: true) do
   = file_field_tag :file
   button#submit Import
 
+p
+  = link_to 'Back to Event', event_path(@event)
+
 - if @people.present?
   h2 People
-  = link_to 'Create Badges', export_path(format: :pdf)
+  = link_to 'Create Badges', export_event_people_path(format: :pdf)
   / = link_to 'Delete All', delete_people_path
   table
     - @people.each do |person|
@@ -13,4 +16,5 @@ h1 Attendees
         td= person.first_name
         td= person.last_name
         td= person.email
-        td= link_to 'Delete', event_role_person_path(id: person.id), method: :delete, confirm: "Are you sure?"
+        td= person.custom_handle
+        td= link_to 'Delete', event_person_path(id: person.id), method: :delete, confirm: "Are you sure?"

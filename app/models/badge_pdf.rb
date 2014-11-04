@@ -1,8 +1,9 @@
 class BadgePdf < Prawn::Document
-  def initialize(people, options = {})
+  def initialize(roles, options = {})
     super()
-    @people = people
+    @roles = roles
     @options = options
+    @event = @roles.first.event
 
     default_options
     generate_pdf
@@ -10,37 +11,62 @@ class BadgePdf < Prawn::Document
 
   private
 
-  attr_reader :people, :options
+  attr_reader :roles, :options
 
   WIDTH = 220
   HEIGHT = 347
 
   def default_options
-
+    @role = roles.find(options[:role]) if options[:role]
   end
 
   def generate_pdf
-    people.each_slice(4).with_index do |page, num|
-      # Front Page
-      start_new_page unless num == 0 # Don't create new page if first page.
+    if @role
+      @role.people.order(last_name: :asc, first_name: :asc).each_slice(4).with_index do |page, num|
+        start_new_page unless page == 0
 
-      page.each_with_index do |person, i|
-        create_badge(person, i) if person
+        generate_page(page, num)
       end
+    else
+      roles.each do |role|
+        draw_cover_page(role)
+        role.people.order(last_name: :asc, first_name: :asc).each_slice(4).with_index do |page, num|
+          generate_page(page, num)
 
-      draw_print_lines
-
-      # Reverse Page
-      start_new_page
-
-      page.in_groups_of(2).reverse.each_with_index do |reverse_page, i|
-        reverse_page.reverse.each_with_index do |person, j|
-          # This calculates the correct order for badges 3 & 4
-          if (i % 3 == 0)
-            j += 2
-          end
-          create_badge(person, j) if person
+          start_new_page unless page == 0
         end
+      end
+    end
+  end
+
+  def draw_cover_page(role)
+    text role.level, size: 35, align: :center
+    text "Role Display: #{role.display.upcase}", size: 25, align: :center
+    move_down 100
+
+    text "People in this role: #{role.people.count.to_s}", size: 20, align: :center
+    start_new_page
+  end
+
+  def generate_page(page, num)
+    # Front Page
+    page.each_with_index do |person, i|
+      create_badge(person, i) if person
+    end
+
+    draw_print_lines
+
+    # Reverse Page
+    start_new_page
+
+    page.in_groups_of(2).each_with_index do |reverse_page, i|
+      reverse_page.reverse.each_with_index do |person, j|
+        # This calculates the correct order for badges 3 & 4
+        if (i % 3 == 1)
+          j += 2
+        end
+
+        create_badge(person, j) if person
       end
     end
   end
@@ -89,9 +115,9 @@ class BadgePdf < Prawn::Document
       # This is here instead of higher in the chain for blank tag generation
       options[:blanks] ? (move_down 100) : draw_name(person)
 
-      text 'INTERESTS:', align: :center, size: 15, color: 'FF0000', style: :bold
+      # text 'INTERESTS:', align: :center, size: 15, color: 'FF0000', style: :bold
 
-      text 'SPEAKER', valign: :bottom, align: :center, size: 25, style: :bold
+      text person.role.display.upcase, valign: :bottom, align: :center, size: 25, style: :bold
 
       stroke_color 'FF0000'
       line_width 10
@@ -101,7 +127,7 @@ class BadgePdf < Prawn::Document
 
   def draw_logo
     move_down 5
-    image Rails.root.join("app", "assets", "images", "logo.png"),
+    image @event.logo_fullpath,
           position: :center,
           height: 50
     move_down 10
