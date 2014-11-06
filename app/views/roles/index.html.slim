@@ -2,14 +2,14 @@ h1 Roles
 - if flash[:status]
   = flash[:status]
 
-= link_to 'Add Role', new_event_role_path(params[:event_id])
-table
-  thead
-    th Participation Level
-    th Badge Display
-    th
-  - @roles.each do |role|
-    tbody
-      td= role.level
-      td= role.display
-      td= link_to 'Attendees', event_role_people_path(role_id: role.id)
+/ = link_to 'Add Role', new_event_role_path(params[:event_id])
+/ table
+/   thead
+/     th Participation Level
+/     th Badge Display
+/     th
+/   - @roles.each do |role|
+/     tbody
+/       td= role.level
+/       td= role.display
+/       td= link_to 'Attendees', event_people_path(role_id: role.id)

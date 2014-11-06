@@ -3,17 +3,23 @@ h1= @event.name
 section#badge_preview
   h3 Badge Preview
   = form_tag('', method: :get) do
-    = select_tag :role_id, options_from_collection_for_select(@event.roles, 'id', 'level')
+    = select_tag :role_id, options_for_select(@event.roles.map{|r| [r.level, r.id]}, params[:role_id])
     button#preview_badge Preview
-  div#preview style='border: 5px solid red;'
-    p
-      - if @event.logo_path
-        = image_tag @event.logo.url, alt: "#{@event.name} Logo", class: 'logo'
-      - else
-        'Please upload an Event logo
-    h2 First Name
-    h2 Last Name
-    h2.role= @role.display.try(:upcase)
+  - if params[:role_id]
+    div#preview style="border: 10px solid ##{@role.border_color};"
+      p
+        - if @event.logo_path
+          = image_tag @event.logo.url, alt: "#{@event.name} Logo", class: 'logo'
+        - else
+          'Please upload an Event logo
+      h2 First Name
+      h2 Last Name
+      - if @role.show_handle
+        h2 @TwitterHandle
+      - if @role.interests?
+        h2 INTERESTS:
+      h2.role= @role.display.try(:upcase)
+
 
 section#event_form
   == render 'form'

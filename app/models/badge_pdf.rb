@@ -1,9 +1,14 @@
 class BadgePdf < Prawn::Document
-  def initialize(roles, options = {})
+  def initialize(event, options = {})
     super()
-    @roles = roles
     @options = options
-    @event = @roles.first.event
+    @event = event
+
+    if options[:blanks]
+      @role = options[:role]
+    else
+      @roles = @event.roles
+    end
 
     default_options
     generate_pdf
@@ -11,17 +16,40 @@ class BadgePdf < Prawn::Document
 
   private
 
-  attr_reader :roles, :options
+  attr_reader :event, :roles, :options
 
   WIDTH = 220
   HEIGHT = 347
 
   def default_options
-    @role = roles.find(options[:role]) if options[:role]
+    options[:color] = '000000'
+    options[:padding] = 50
+  end
+
+  def set_options(role)
+    # if options[:role]
+    #   @role = event.find(options[:role])
+    #   options[:color] = @role.border_color
+    #   options[:padding] = @role.name_location
+    # end
+    if role.border_color
+      options[:color] = role.border_color
+    end
+    if role.name_location
+      options[:padding] = role.name_location
+    end
   end
 
   def generate_pdf
-    if @role
+    if options[:blanks] & options[:num_badges]
+      set_options(@role)
+      options[:num_badges].times.each_slice(4).with_index do |page, num|
+        generate_page(page, num)
+      end
+
+    elsif @role
+      set_options(@role)
+
       @role.people.order(last_name: :asc, first_name: :asc).each_slice(4).with_index do |page, num|
         start_new_page unless page == 0
 
@@ -29,7 +57,9 @@ class BadgePdf < Prawn::Document
       end
     else
       roles.each do |role|
+        set_options(role)
         draw_cover_page(role)
+
         role.people.order(last_name: :asc, first_name: :asc).each_slice(4).with_index do |page, num|
           generate_page(page, num)
 
@@ -74,24 +104,24 @@ class BadgePdf < Prawn::Document
   def draw_print_lines
     # line [x, y], [x, y]
     # Top
-    line [bounds.left + 40, bounds.top + 25], [bounds.left + 40, bounds.top - 4] # Left
-    line [bounds.width / 2, bounds.top + 25], [bounds.width / 2, bounds.top - 4] # Middle
-    line [bounds.right - 40, bounds.top + 25], [bounds.right - 40, bounds.top - 4] # Right
+    line [bounds.left + 40, bounds.top + 30], [bounds.left + 40, bounds.top - 4] # Left
+    line [bounds.width / 2, bounds.top + 30], [bounds.width / 2, bounds.top - 4] # Middle
+    line [bounds.right - 40, bounds.top + 30], [bounds.right - 40, bounds.top - 4] # Right
 
     # Bottom
-    line [bounds.left + 40, bounds.bottom + 4], [bounds.left + 40, bounds.bottom - 25] # Left
-    line [bounds.width / 2, bounds.bottom + 4], [bounds.width / 2, bounds.bottom - 25] # Middle
-    line [bounds.right - 40, bounds.bottom + 4], [bounds.right - 40, bounds.bottom - 25] # Right
+    line [bounds.left + 40, bounds.bottom + 4], [bounds.left + 40, bounds.bottom - 30] # Left
+    line [bounds.width / 2, bounds.bottom + 4], [bounds.width / 2, bounds.bottom - 30] # Middle
+    line [bounds.right - 40, bounds.bottom + 4], [bounds.right - 40, bounds.bottom - 30] # Right
 
     # Left
-    line [bounds.left - 25, bounds.top - 4], [bounds.left + 40, bounds.top - 4] # Top
-    line [bounds.left - 25, bounds.height / 2], [bounds.left + 40, bounds.height / 2] # Middle
-    line [bounds.left - 25, bounds.bottom + 4], [bounds.left + 40, bounds.bottom + 4] # Bottom
+    line [bounds.left - 30, bounds.top - 4], [bounds.left + 40, bounds.top - 4] # Top
+    line [bounds.left - 30, bounds.height / 2], [bounds.left + 40, bounds.height / 2] # Middle
+    line [bounds.left - 30, bounds.bottom + 4], [bounds.left + 40, bounds.bottom + 4] # Bottom
 
     # Right
-    line [bounds.right + 25, bounds.top - 4], [bounds.right - 40, bounds.top - 4] # Top
-    line [bounds.right + 25, bounds.height / 2], [bounds.right - 40, bounds.height / 2] # Middle
-    line [bounds.right + 25, bounds.bottom + 4], [bounds.right - 40, bounds.bottom + 4] # Top
+    line [bounds.right + 30, bounds.top - 4], [bounds.right - 40, bounds.top - 4] # Top
+    line [bounds.right + 30, bounds.height / 2], [bounds.right - 40, bounds.height / 2] # Middle
+    line [bounds.right + 30, bounds.bottom + 4], [bounds.right - 40, bounds.bottom + 4] # Top
 
     # Draw Lines
     stroke_color '7E7E7E'
@@ -117,9 +147,12 @@ class BadgePdf < Prawn::Document
 
       # text 'INTERESTS:', align: :center, size: 15, color: 'FF0000', style: :bold
 
-      text person.role.display.upcase, valign: :bottom, align: :center, size: 25, style: :bold
-
-      stroke_color 'FF0000'
+      if options[:blanks]
+        text @role.display.upcase, valign: :bottom, align: :center, size: 25, style: :bold
+      else
+        text person.role.display.upcase, valign: :bottom, align: :center, size: 25, style: :bold
+      end
+      stroke_color options[:color]
       line_width 10
       stroke_bounds
     end
@@ -134,6 +167,8 @@ class BadgePdf < Prawn::Document
   end
 
   def draw_name(person)
+    # text options[:padding], align: :center
+    move_down options[:padding]
     text person.first_name, align: :center, size: 34, style: :bold
     move_down 5
     text person.last_name, align: :center, size: 30, style: :bold

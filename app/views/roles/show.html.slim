@@ -1,1 +1,25 @@
-= @role.inspect
+h1= @role.level
+= link_to 'Back to Event', event_path(@event)
+
+= simple_form_for([@event, @role]) do |f|
+  = f.input :level, label: "Level of Participation"
+  = f.input :display, label: "Display Text for Role"
+  = f.input :border_color, label: "Badge Color in Hex (#000000)"
+  = f.input :name_location, collection: [['Top', 0], ['Middle', 45], ['Bottom', 125]], default: 'Top', label: "Name Position on Badge"
+  = f.input :interests, as: :radio_buttons
+  = f.input :show_handle, as: :radio_buttons
+  = f.button :submit, f.object.new_record? ? "Create" : "Update"
+
+div#preview style="border: 10px solid ##{@role.border_color};"
+  p
+    - if @event.logo_path
+      = image_tag @event.logo.url, alt: "#{@event.name} Logo", class: 'logo'
+    - else
+      'Please upload an Event logo
+  h2 First Name
+  h2 Last Name
+  - if @role.show_handle
+    h2 @TwitterHandle
+  - if @role.interests
+    h2 INTERESTS:
+  h2.role= @role.display.try(:upcase)

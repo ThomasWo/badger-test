@@ -19,9 +19,10 @@ class PeopleController < ApplicationController
   end
 
   def export_blanks
+    role = Role.find(params[:role_id])
     respond_to do |format|
       format.pdf do
-        pdf = BadgePdf.new((1..4), {blanks: true})
+        pdf = BadgePdf.new(@event, {blanks: true, role: role, num_badges: params[:num_badges].to_i})
         send_data pdf.render, filename: 'blank_badges.pdf', type: 'application/pdf', disposition: 'inline'
       end
     end
@@ -30,7 +31,7 @@ class PeopleController < ApplicationController
   def export
     respond_to do |format|
       format.pdf do
-        pdf = BadgePdf.new(@event.roles)
+        pdf = BadgePdf.new(@event)
         send_data pdf.render, filename: 'badges.pdf', type: 'application/pdf', disposition: 'inline'
       end
       format.html

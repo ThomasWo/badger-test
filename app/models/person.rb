@@ -13,7 +13,8 @@ class Person < ActiveRecord::Base
         custom_handle: self.sanitize_handle(row['handle']),
         shirt_size: row['shirt-size'],
         diet_restrictions: row['diet'],
-        role_id: Role.find_by_level(row['role']).id
+        title: row['title'],
+        role_id: Role.find_by_level_and_event_id(row['role'], event.id).id
       )
       event.save
     end

@@ -25,7 +25,7 @@ class RolesController < ApplicationController
     @role = @event.roles.find(params[:id])
 
     if @role.update_attributes(role_params)
-      redirect_to event_path(@event), notice: "Successfully updated #{@role.level} to #{@event.name}."
+      redirect_to event_role_path(@event, @role), notice: "Successfully updated #{@role.level} to #{@event.name}."
     else
       flash[:error] = "Error updating role."
       render :edit
@@ -36,7 +36,7 @@ class RolesController < ApplicationController
     @role = @event.roles.build(role_params)
 
     if @role.save
-      redirect_to event_path(@event), notice: "Successfully added #{@role.level} to #{@event.name}."
+      redirect_to event_role_path(@event, @role), notice: "Successfully added #{@role.level} to #{@event.name}."
     else
       flash[:error] = "Error creating role."
       render :new
@@ -51,7 +51,7 @@ class RolesController < ApplicationController
 
   private
     def role_params
-      params.require(:role).permit(:level, :display)
+      params.require(:role).permit(:level, :display, :border_color, :name_location, :interests, :show_handle)
     end
 
     def get_event
